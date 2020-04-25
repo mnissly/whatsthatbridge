@@ -6,7 +6,8 @@ from . import views
 
 def index(request):
     template = loader.get_template('bridge/index.html')
-    return HttpResponse(template)
+    context = {}
+    return HttpResponse(template.render(context, request))
 
 
 def detail(request, bridge_id):
