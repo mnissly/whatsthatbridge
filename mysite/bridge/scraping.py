@@ -28,16 +28,19 @@ def parse_page(page):
         if bridge_exists is None:
             bridge_name = div_element.find('a', class_='name')
             if bridge_name is not None:
-                print(bridge_name.text)
+                bridge_name = bridge_name.text
             bridge_description = div_element.find('span', class_='overview')
             if bridge_description is not None:
-                print(bridge_description.text)
+                bridge_description = bridge_description.text
             bridge_history = div_element.find('span', class_='history')
             if bridge_history is not None:
-                print(bridge_history.text)
+                bridge_history = bridge_history.text
 
+            q = Bridge(name=bridge_name, description=bridge_description, year_built=bridge_history)
+            q.save()
 
-if __name__ == '__main__':
+"""if __name__ == '__main__':
     for county in ['howard']:
         bh_page = get_bridgehunters_page(county)
         parse_page(bh_page)
+"""
