@@ -11,6 +11,11 @@
 <h1>
     Hello, welcome to <b>What's That Bridge?</b>
 </h1>
-    <img src="https://www.mit.edu/~puzzle/2017/assets/general/quests/bridge-scene.png"/>
+    <form action="{% url 'bridge:add_county' %}" method="post">
+    {% csrf_token %}
+        <label for="county">Enter your county here:</label>
+    <input type="text" value="Enter your county here:" name="county_text" id="county">
+    <input type="submit" value="Ready!">
+</form>
 </div>
 </html>
