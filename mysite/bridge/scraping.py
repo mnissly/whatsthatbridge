@@ -35,6 +35,8 @@ def parse_page(page):
             bridge_history = div_element.find('span', class_='history')
             if bridge_history is not None:
                 bridge_history = bridge_history.text
+            elif bridge_history is None:
+                bridge_history = "There is no history for this bridge yet!"
 
             q = Bridge(name=bridge_name, description=bridge_description, year_built=bridge_history)
             q.save()
