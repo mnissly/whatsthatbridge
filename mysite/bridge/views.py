@@ -15,11 +15,12 @@ def index(request):
 def detail(request, bridge_id):
     return HttpResponse("You're looking at bridge %s." % bridge_id)
 
+
 def add_county(request):
     county_text = request.POST['county_text']
-    #question = Bridge(question_text=question_text, pub_date=timezone.now())
-    #question.save()
-    #return HttpResponseRedirect(reverse('polls:index'))
+    # question = Bridge(question_text=question_text, pub_date=timezone.now())
+    # question.save()
+    # return HttpResponseRedirect(reverse('polls:index'))
     bh_page = get_bridgehunters_page(county_text)
     parse_page(bh_page)
     return HttpResponse(Bridge)
