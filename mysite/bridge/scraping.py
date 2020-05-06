@@ -1,7 +1,8 @@
 import requests
 from bs4 import BeautifulSoup
 
-from .models import Bridge
+
+# from .models import Bridge
 
 
 def get_bridgehunters_page(county):
@@ -10,19 +11,21 @@ def get_bridgehunters_page(county):
     :param county: the name of the county of interest
     :return: the content of the website
     """
-    url = f'https://bridgehunter.com/md/{county}/'
+    url = f'https://bridgehunter.com{county}'
     page = requests.get(url)
     return page.content
 
 
 def parse_page(page):
     """
-
+    This will parse through the given page, and put all the bridges in the database
     :param page: the html file that is read to be parsed
-    :return:
+    :return: Nothing
     """
+
+    bridge_data = []
     soup = BeautifulSoup(page, 'html.parser')
-    result = soup.select('.x') #this looks for all of the divs with class = x
+    result = soup.select('.x')  # this looks for all of the divs with class = x
     for div_element in result:
         bridge_exists = div_element.find('span', class_='slost')
         if bridge_exists is None:
@@ -37,12 +40,60 @@ def parse_page(page):
                 bridge_history = bridge_history.text
             elif bridge_history is None:
                 bridge_history = "There is no history for this bridge yet!"
+            map_url = div_element.find('span', class_='i')
+            map_url = map_url.find('a')
+            map_url= (map_url['href'])
 
-            q = Bridge(name=bridge_name, description=bridge_description, year_built=bridge_history)
-            q.save()
+            bridge_data.append([bridge_name, bridge_description, bridge_history])
+            # q = Bridge(name=bridge_name, description=bridge_description, year_built=bridge_history)
+            # q.save()
 
-"""if __name__ == '__main__':
-    for county in ['howard']:
-        bh_page = get_bridgehunters_page(county)
-        parse_page(bh_page)
-"""
+def get_coordinates(map_url):
+    """
+
+    :param map_url: This is the url of the bridge of interest
+    :return: the latitude and longitude in a tuple
+    """
+    map_page = requests.get(map_url).content
+    soup = BeautifulSoup(map_page, 'html.parser')
+    result = soup.find_all('div', class_='section')
+    for facts_exist in result:
+        facts_section = facts_exist.find('a', {'name': 'Facts'})
+        if facts_section is not None:
+            facts = facts_exist.find('dl')
+            if facts is not None:
+                coordinates = facts.find('span', class_='geo')
+                latitude = coordinates.find('span', class_='latitude')
+                if latitude is not None:
+                    latitude = latitude.text
+                longitude = coordinates.find('span', class_='longitude')
+                if longitude is not None:
+                    longitude = longitude.text
+
+    return latitude, longitude
+
+
+def county_list(url):
+    """
+    this function will get all of the county links in a state
+    :param url: the url of the state of interest
+    :return: a list of counties in a given state
+    """
+    counties = []
+
+    page = requests.get(url).content
+    soup = BeautifulSoup(page, 'html.parser')
+    result = soup.find(id='widepagecontent')
+    result = result.find('ul')
+    result = result.find_all('li')
+    for county_name in result:
+        if county_name is not None:
+            county_name = county_name.find('a')
+            counties.append(county_name['href'])
+
+    return counties
+
+
+if __name__ == '__main__':
+
+    get_coordinates("https://bridgehunter.com/md/harford/bh84278/#Map")

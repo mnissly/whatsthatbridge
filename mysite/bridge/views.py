@@ -1,9 +1,8 @@
 from django.http import HttpResponse
 from django.urls import path
 from django.template import loader
-from . import views
 from .models import Bridge
-from .scraping import get_bridgehunters_page, parse_page
+from .scraping import get_bridgehunters_page, parse_page, county_list
 
 
 def index(request):
@@ -16,10 +15,14 @@ def detail(request, bridge_id):
     return HttpResponse("You're looking at bridge %s." % bridge_id)
 
 def add_county(request):
-    county_text = request.POST['county_text']
+    #county_text = request.POST['county_text']
     #question = Bridge(question_text=question_text, pub_date=timezone.now())
     #question.save()
     #return HttpResponseRedirect(reverse('polls:index'))
-    bh_page = get_bridgehunters_page(county_text)
-    parse_page(bh_page)
-    return HttpResponse(Bridge)
+
+    url = 'https://bridgehunter.com/md/list/'
+    counties = county_list(url)
+    for county in counties:
+        bh_page = get_bridgehunters_page(county)
+        parse_page(bh_page)
+    return HttpResponse("The data is in the database")
