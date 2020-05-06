@@ -20,7 +20,7 @@ def parse_page(page):
     """
     This will parse through the given page, and put all the bridges in the database
     :param page: the html file that is read to be parsed
-    :return: Nothing
+    :return: list of bridge elements
     """
 
     bridge_data = []
@@ -43,8 +43,11 @@ def parse_page(page):
             map_url = div_element.find('span', class_='i')
             map_url = map_url.find('a')
             map_url= (map_url['href'])
+            latitude, longitude = get_coordinates(map_url)
 
-            bridge_data.append([bridge_name, bridge_description, bridge_history])
+            bridge_data.append([bridge_name, bridge_description, bridge_history, latitude, longitude])
+
+            return bridge_data
             # q = Bridge(name=bridge_name, description=bridge_description, year_built=bridge_history)
             # q.save()
 
@@ -69,8 +72,7 @@ def get_coordinates(map_url):
                 longitude = coordinates.find('span', class_='longitude')
                 if longitude is not None:
                     longitude = longitude.text
-
-    return latitude, longitude
+                return latitude, longitude
 
 
 def county_list(url):
@@ -94,6 +96,6 @@ def county_list(url):
     return counties
 
 
-if __name__ == '__main__':
+#if __name__ == '__main__':
 
-    get_coordinates("https://bridgehunter.com/md/harford/bh84278/#Map")
+
