@@ -1,6 +1,8 @@
 from django.http import HttpResponse
 from django.urls import path
 from django.template import loader
+from django.views import generic
+
 from . import views
 from .models import Bridge
 from .scraping import get_bridgehunters_page, parse_page
@@ -12,8 +14,9 @@ def index(request):
     return HttpResponse(template.render(context, request))
 
 
-def detail(request, bridge_id):
-    return HttpResponse("You're looking at bridge %s." % bridge_id)
+class DetailView(generic.DetailView):
+    model = Bridge
+    template_name = "bridge/detail.html"
 
 
 def add_county(request):
