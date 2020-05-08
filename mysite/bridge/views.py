@@ -1,4 +1,5 @@
 from django.http import HttpResponse
+from django.shortcuts import get_object_or_404, render
 from django.urls import path
 from django.template import loader
 from django.views import generic
@@ -14,9 +15,9 @@ def index(request):
     return HttpResponse(template.render(context, request))
 
 
-class DetailView(generic.DetailView):
-    model = Bridge
-    template_name = "bridge/detail.html"
+def detail(request, bridge_id):
+    bridge = get_object_or_404(Bridge, pk=bridge_id)
+    return render(request, 'bridge/detail.html', {'bridge': bridge})
 
 
 def add_county(request):
