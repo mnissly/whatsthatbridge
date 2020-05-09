@@ -11,12 +11,13 @@
 <link rel="icon" type="image/png" sizes="16x16" href="{% static 'bridge/favicon-16x16.png' %}">
 <link rel="manifest" href="{% static 'bridge/site.webmanifest' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'bridge/style.css' %}">
+<title>What's That Bridge?</title>
 <div class="container-fluid">
 <h1>
     Hello, welcome to <b>What's That Bridge?</b>
 </h1>
     <div class="container-fluid">
-        <a href="{% url 'bridge:detail' 1 %}">
+        <a href="{% url 'bridge:detail' random.id %}">
             <input type="button" value="Find that bridge!"/>
         </a>
     </div>

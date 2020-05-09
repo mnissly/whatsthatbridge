@@ -11,7 +11,8 @@ from .scraping import get_bridgehunters_page, parse_page
 
 def index(request):
     template = loader.get_template('bridge/index.html')
-    context = {}
+    random = Bridge.objects.order_by("?").first
+    context = {'random': random}
     return HttpResponse(template.render(context, request))
 
 
