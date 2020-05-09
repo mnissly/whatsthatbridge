@@ -11,6 +11,11 @@
 <h1>
     Hello, welcome to <b>What's That Bridge?</b>
 </h1>
+    <div class="container-fluid">
+        <a href="{% url 'bridge:detail' 1 %}">
+            <input type="button" value="Find that bridge!"/>
+        </a>
+    </div>
     <!--
     <form action="{% url 'bridge:add_county' %}" method="post">
     {% csrf_token %}

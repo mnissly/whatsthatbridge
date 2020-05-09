@@ -15,4 +15,15 @@
 <div class="container-fluid">
 <img class="bridge_pic" src={{bridge.picture}}/>
 </div>
+<br>
+<div class="container-fluid">
+    {{bridge.description}}<br>
+    This bridge was built in {{bridge.year_built}}
+</div>
+<br>
+<div class="container-fluid">
+    <a href="{% url 'bridge:index' %}">
+        <input type="button" value="Home"/>
+    </a>
+</div>
 </html>
