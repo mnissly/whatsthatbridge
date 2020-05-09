@@ -1,6 +1,6 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
-from django.urls import path
+from django.urls import path, reverse
 from django.template import loader
 from django.views import generic
 
@@ -28,4 +28,4 @@ def add_county(request):
     # return HttpResponseRedirect(reverse('polls:index'))
     bh_page = get_bridgehunters_page(county_text)
     parse_page(bh_page)
-    return HttpResponse(Bridge)
+    return HttpResponseRedirect(reverse('bridge:index'))
