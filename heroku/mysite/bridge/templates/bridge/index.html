@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+<link rel="shortcut icon" href="favicon.ico">
+<link rel="stylesheet" type="text/css" href="{% static 'bridge/style.css' %}">
+<title>What's That Bridge?</title>
+<div class="container-fluid">
+<h1>
+    Hello, welcome to <b>What's That Bridge?</b>
+</h1>
+    <div class="container-fluid">
+        <a href="{% url 'bridge:detail' random.id %}">
+            <input type="button" value="Find that bridge!"/>
+        </a>
+    </div>
+    <!--
+    <form action="{% url 'bridge:add_county' %}" method="post">
+    {% csrf_token %}
+        <label for="county"><b>Enter your county here:</b></label>
+    <input type="text" value="" name="county_text" id="county">
+    <input type="submit" value="Ready!">
+</form>
+-->
+</div>
+</html>
