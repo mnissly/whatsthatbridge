@@ -15,7 +15,11 @@
 </h1>
 </div>
 <div class="container-fluid">
-<img class="bridge_pic" src={{bridge.picture}}/>
+{% if bridge.picture %}
+    <img class="bridge_pic" src={{bridge.picture}} />
+{% else %}
+    <img class="bridge_pic" src="{% static 'bridge/default_bridge.jpg' %}"/>
+{% endif %}
 </div>
 <br>
 <div class="container-fluid">
