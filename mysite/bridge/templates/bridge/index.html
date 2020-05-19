@@ -23,6 +23,7 @@ function showPosition(position) {
   "<br>Longitude: " + position.coords.longitude;
 }
 </script>
+
 <title>What's That Bridge?</title>
 <div class="container-fluid">
 <h1>
@@ -36,6 +37,7 @@ function showPosition(position) {
     <br>
     <div class="container-fluid">
         <button onclick="getLocation()">Get Location!</button>
+        <p id="demo"></p>
     </div>
     <!--
     <form action="{% url 'bridge:add_county' %}" method="post">
