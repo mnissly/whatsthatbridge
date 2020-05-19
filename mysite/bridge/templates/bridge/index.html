@@ -8,6 +8,30 @@
             crossorigin="anonymous"></script>
 <link rel="shortcut icon" href="{% static 'bridge/favicon.ico' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'bridge/style.css' %}">
+
+<title>What's That Bridge?</title>
+<div class="container-fluid">
+<h1>
+    Hello, welcome to <b>What's That Bridge?</b>
+</h1>
+    <div class="container-fluid">
+        <a href="{% url 'bridge:detail' random.id %}">
+            <input type="button" value="Find that bridge!"/>
+        </a>
+    </div>
+    <br>
+    <div class="container-fluid">
+        <button onclick="getLocation()">Get Location!</button>
+    </div>
+    <!--
+    <form action="{% url 'bridge:add_county' %}" method="post">
+    {% csrf_token %}
+        <label for="county"><b>Enter your county here:</b></label>
+    <input type="text" value="" name="county_text" id="county">
+    <input type="submit" value="Ready!">
+</form>
+-->
+</div>
 <script>
 var x = document.getElementById("demo");
 function getLocation() {
@@ -23,29 +47,4 @@ function showPosition(position) {
   "<br>Longitude: " + position.coords.longitude;
 }
 </script>
-
-<title>What's That Bridge?</title>
-<div class="container-fluid">
-<h1>
-    Hello, welcome to <b>What's That Bridge?</b>
-</h1>
-    <div class="container-fluid">
-        <a href="{% url 'bridge:detail' random.id %}">
-            <input type="button" value="Find that bridge!"/>
-        </a>
-    </div>
-    <br>
-    <div class="container-fluid">
-        <button onclick="getLocation()">Get Location!</button>
-        <p id="demo"></p>
-    </div>
-    <!--
-    <form action="{% url 'bridge:add_county' %}" method="post">
-    {% csrf_token %}
-        <label for="county"><b>Enter your county here:</b></label>
-    <input type="text" value="" name="county_text" id="county">
-    <input type="submit" value="Ready!">
-</form>
--->
-</div>
 </html>
