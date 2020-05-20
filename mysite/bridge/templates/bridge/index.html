@@ -21,12 +21,9 @@
     </div>
     <br>
     <div class="container-fluid">
-        <a href="{% url 'bridge:closest' random.lat random.long %}">
-            <input type="button" value="Closest bridge!"/>
-        </a>
         <form action="{% url 'bridge:closest' %}" method="post">
             {% csrf_token %}
-            <input type="submit" value="Closest bridge!" id={{getCurrentPosition}}/>
+            <input type="submit" value="Closest bridge!" id="getCurrentPosition()"/>
         </form>
     </div>
     <br>
