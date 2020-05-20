@@ -1,7 +1,7 @@
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, request
 from django.shortcuts import get_object_or_404, render
 from django.urls import path, reverse
-from django.template import loader
+from django.template import loader, context
 from django.views import generic
 
 from . import views
@@ -29,3 +29,9 @@ def add_county(request):
     bh_page = get_bridgehunters_page(county_text)
     parse_page(bh_page)
     return HttpResponseRedirect(reverse('bridge:index'))
+
+
+def closest_bridges(latitude, longitude):
+    #long_stand = longitude
+    #lat_stand = latitude
+    return HttpResponse(render(context, request))
