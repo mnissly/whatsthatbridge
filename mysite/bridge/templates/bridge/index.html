@@ -21,14 +21,15 @@
     </div>
     <br>
     <div class="container-fluid">
-        <a href="{% url 'bridge:closest' 1,1 %}">
+        <a href="{% url 'bridge:closest' random.lat random.long %}">
             <input type="button" value="Closest bridge!"/>
         </a>
+        <form action="{% url 'bridge:closest' %}" method="post">
+            {% csrf_token %}
+            <input type="submit" value="Closest bridge!" id={{getCurrentPosition}}/>
+        </form>
     </div>
     <br>
-    <div class="container-fluid">
-        <button onclick="getLocation()">Get Location!</button>
-    </div>
     <!--
     <form action="{% url 'bridge:add_county' %}" method="post">
     {% csrf_token %}
@@ -38,19 +39,4 @@
 </form>
 -->
 </div>
-<script>
-var x = document.getElementById("demo");
-function getLocation() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(showPosition);
-  } else {
-    x.innerHTML = "Geolocation is not supported by this browser.";
-  }
-}
-
-function showPosition(position) {
-  x.innerHTML = "Latitude: " + position.coords.latitude +
-  "<br>Longitude: " + position.coords.longitude;
-}
-</script>
 </html>

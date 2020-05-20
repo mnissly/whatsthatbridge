@@ -29,6 +29,9 @@ def add_county(request):
     return HttpResponseRedirect(reverse('bridge:index'))
 
 
-def closest(latitude, longitude):
+def closest(request):
+    coords = request.POST['id']
+    latitude = coords.latitude
+    longitude = coords.longitude
     the_bridge = nearest_bridge(latitude, longitude)
     return HttpResponseRedirect(reverse('bridge:detail', args=(the_bridge.id,)))
