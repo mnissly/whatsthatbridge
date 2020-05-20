@@ -16,7 +16,13 @@
 </h1>
     <div class="container-fluid">
         <a href="{% url 'bridge:detail' random.id %}">
-            <input type="button" value="Find that bridge!"/>
+            <input type="button" value="Random bridge!"/>
+        </a>
+    </div>
+    <br>
+    <div class="container-fluid">
+        <a href="{% url 'bridge:closest' 1,1 %}">
+            <input type="button" value="Closest bridge!"/>
         </a>
     </div>
     <br>

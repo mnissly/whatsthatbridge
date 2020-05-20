@@ -1,12 +1,10 @@
 from django.http import HttpResponse, HttpResponseRedirect, request
 from django.shortcuts import get_object_or_404, render
-from django.urls import path, reverse
+from django.urls import reverse
 from django.template import loader, context
-from django.views import generic
-
-from . import views
 from .models import Bridge
 from .scraping import get_bridgehunters_page, parse_page
+from .proximity import nearest_bridge
 
 
 def index(request):
@@ -31,7 +29,6 @@ def add_county(request):
     return HttpResponseRedirect(reverse('bridge:index'))
 
 
-def closest_bridges(latitude, longitude):
-    #long_stand = longitude
-    #lat_stand = latitude
-    return HttpResponse(render(context, request))
+def closest(latitude, longitude):
+    the_bridge = nearest_bridge(latitude, longitude)
+    return HttpResponseRedirect(reverse('bridge:detail', args=(the_bridge.id,)))
