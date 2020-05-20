@@ -23,10 +23,11 @@
     <div class="container-fluid">
         <form action="{% url 'bridge:closest' %}" method="post">
             {% csrf_token %}
-            <input type="submit" value="Closest bridge!" id="getCurrentPosition()"/>
+            <input type="submit" value="Closest bridge!" id="position"/>
         </form>
     </div>
     <br>
+
     <!--
     <form action="{% url 'bridge:add_county' %}" method="post">
     {% csrf_token %}
@@ -36,4 +37,8 @@
 </form>
 -->
 </div>
+
+<script>
+document.getElementById("position").innerHTML = getCurrentPosition();
+</script>
 </html>
