@@ -16,14 +16,14 @@
 </h1>
     <div class="container-fluid">
         <a href="{% url 'bridge:detail' random.id %}">
-            <input type="button" value="Random bridge!"/>
+            <input type="button" value="Random bridge!" class="btn btn-dark"/>
         </a>
     </div>
     <br>
     <div class="container-fluid">
         <form action="{% url 'bridge:closest' %}" method="post">
             {% csrf_token %}
-            <input type="submit" value="Closest bridge!"/>
+            <input type="submit" value="Closest bridge!" class="btn btn-dark"/>
         </form>
     </div>
     <br>
