@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.urls import path
 from django.template import loader
-from .models import Bridge
+from .models import  Bridge
 from .scraping import get_bridgehunters_page, parse_page, county_list
 
 
@@ -20,9 +20,13 @@ def add_county(request):
     #question.save()
     #return HttpResponseRedirect(reverse('polls:index'))
 
-    url = 'https://bridgehunter.com/md/list/'
-    counties = county_list(url)
+    county_url = 'https://bridgehunter.com/md/list/'
+    url = 'https://bridgehunter.com'
+    counties = county_list(county_url)
     for county in counties:
-        bh_page = get_bridgehunters_page(county)
+        print(f'{url=},{county=}')
+        bh_page = get_bridgehunters_page(url,county)
         parse_page(bh_page)
+
     return HttpResponse("The data is in the database")
+

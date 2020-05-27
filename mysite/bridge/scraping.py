@@ -1,17 +1,17 @@
 import requests
 from bs4 import BeautifulSoup
 
+from .models import Bridge
 
-# from .models import Bridge
 
-
-def get_bridgehunters_page(county):
+def get_bridgehunters_page(url, county):
     """
-    this function will open the page and throw out the entire contents of the page
+    this function will open the page and return the entire contents of the page
     :param county: the name of the county of interest
+    :param url: the url for the state of interest
     :return: the content of the website
     """
-    url = f'https://bridgehunter.com{county}'
+    url = url+county
     page = requests.get(url)
     return page.content
 
@@ -41,15 +41,18 @@ def parse_page(page):
             elif bridge_history is None:
                 bridge_history = "There is no history for this bridge yet!"
             map_url = div_element.find('span', class_='i')
-            map_url = map_url.find('a')
-            map_url= (map_url['href'])
-            latitude, longitude = get_coordinates(map_url)
+            if map_url is not None:
+                map_url = map_url.find('a')
+                if map_url is not None:
+                    map_url = (map_url['href'])
+                    map_url = "https://bridgehunter.com/" + map_url
+                    print(">> ", map_url)
+                    latitude, longitude = get_coordinates(map_url)
 
-            bridge_data.append([bridge_name, bridge_description, bridge_history, latitude, longitude])
 
-            return bridge_data
-            # q = Bridge(name=bridge_name, description=bridge_description, year_built=bridge_history)
-            # q.save()
+            #q = Bridge(name=bridge_name, description=bridge_description, year_built=bridge_history, lat=latitude, long = longitude)
+            #q.save()
+                    print(f'{bridge_name=}, {bridge_description=}, {bridge_history=}, {latitude=}, {longitude=}')
 
 def get_coordinates(map_url):
     """
@@ -96,6 +99,7 @@ def county_list(url):
     return counties
 
 
-#if __name__ == '__main__':
+if __name__ == '__main__':
 
-
+    page = get_bridgehunters_page('https://bridgehunter.com/md/', 'howard')
+    parse_page(page)
