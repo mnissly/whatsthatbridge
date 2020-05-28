@@ -10,6 +10,10 @@ def index(request):
     context = {}
     return HttpResponse(template.render(context, request))
 
+def dataloader(request):
+    template = loader.get_template('bridge/dataloader.html')
+    context = {}
+    return HttpResponse(template.render(context, request))
 
 def detail(request, bridge_id):
     return HttpResponse("You're looking at bridge %s." % bridge_id)

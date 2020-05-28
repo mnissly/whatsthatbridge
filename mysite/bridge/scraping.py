@@ -46,13 +46,12 @@ def parse_page(page):
                 if map_url is not None:
                     map_url = (map_url['href'])
                     map_url = "https://bridgehunter.com/" + map_url
-                    print(">> ", map_url)
                     latitude, longitude = get_coordinates(map_url)
 
 
-            #q = Bridge(name=bridge_name, description=bridge_description, year_built=bridge_history, lat=latitude, long = longitude)
-            #q.save()
-                    print(f'{bridge_name=}, {bridge_description=}, {bridge_history=}, {latitude=}, {longitude=}')
+                    q = Bridge(name=bridge_name, description=bridge_description, year_built=bridge_history, lat=latitude, long = longitude)
+                    q.save()
+
 
 def get_coordinates(map_url):
     """

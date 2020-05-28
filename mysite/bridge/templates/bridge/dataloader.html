@@ -11,5 +11,9 @@
 <h1>
     Hello, welcome to <b>What's That Bridge?</b>
 </h1>
+    <form action="{% url 'bridge:add_county' %}" method="post">
+    {% csrf_token %}
+        <input type="submit" value="Load Bridge Data">
+    </form>
 </div>
 </html>
